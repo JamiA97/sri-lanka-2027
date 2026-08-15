@@ -27,10 +27,52 @@ const latlngs=Object.values(stops).map(s=>s.coords);L.polyline(latlngs,{color:'#
 Object.entries(stops).forEach(([id,s],i)=>{const marker=L.circleMarker(s.coords,{radius:9,weight:3,color:'#fff',fillColor:'#b8894d',fillOpacity:1}).addTo(map);marker.bindPopup(`<div class="map-popup"><b>${i+1}. ${s.name}</b><small>${s.hotel}</small></div>`);s.marker=marker});
 map.fitBounds(latlngs,{padding:[40,40]});document.querySelectorAll('[data-stop]').forEach(b=>b.addEventListener('click',()=>{const s=stops[b.dataset.stop];map.flyTo(s.coords,9,{duration:1.2});s.marker.openPopup()}));
 
+const SUPABASE_URL='https://nwxsdryojjwyweitovhz.supabase.co';
+const SUPABASE_KEY='sb_publishable_EozqsbuGJdDsTly_CLWHwQ_TxGi9mQO';
+const NOTES_ENDPOINT=`${SUPABASE_URL}/rest/v1/trip_comments`;
+const apiHeaders={'apikey':SUPABASE_KEY,'Authorization':`Bearer ${SUPABASE_KEY}`,'Content-Type':'application/json'};
+
 const dialog=document.getElementById('note-dialog'),topic=document.getElementById('note-topic'),nameInput=document.getElementById('note-name'),textInput=document.getElementById('note-text'),notesList=document.getElementById('notes-list');
-const getNotes=()=>JSON.parse(localStorage.getItem('sl27-notes')||'[]');
-function renderNotes(){const notes=getNotes();notesList.innerHTML=notes.length?'':'<div class="empty-note">No notes on this device yet. Add the first thought or suggested change.</div>';notes.slice().reverse().forEach(n=>{const el=document.createElement('article');el.className='note';el.innerHTML=`<div class="who">${escapeHtml(n.name)}</div><h4>${escapeHtml(n.topic)}</h4><p>${escapeHtml(n.text)}</p>`;notesList.appendChild(el)})}
+let notes=[];
+
+async function loadNotes(){
+  notesList.innerHTML='<div class="empty-note">Loading family comments…</div>';
+  try{
+    const r=await fetch(`${NOTES_ENDPOINT}?select=id,name,topic,body,created_at&order=created_at.desc`,{headers:apiHeaders});
+    if(!r.ok) throw new Error(`HTTP ${r.status}`);
+    notes=await r.json();
+    renderNotes();
+  }catch(err){
+    console.error('Comment load failed',err);
+    notesList.innerHTML='<div class="empty-note">Comments could not be loaded. Please refresh and try again.</div>';
+  }
+}
+
+function renderNotes(){
+  notesList.innerHTML=notes.length?'':'<div class="empty-note">No family comments yet. Add the first thought or suggested change.</div>';
+  notes.forEach(n=>{const el=document.createElement('article');el.className='note';const when=new Date(n.created_at).toLocaleString('en-GB',{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'});el.innerHTML=`<div class="who">${escapeHtml(n.name)} <span class="note-time">· ${escapeHtml(when)}</span></div><h4>${escapeHtml(n.topic)}</h4><p>${escapeHtml(n.body)}</p>`;notesList.appendChild(el)});
+}
+
 function openNote(t='Whole trip'){topic.value=t;nameInput.value=localStorage.getItem('sl27-name')||'';textInput.value='';dialog.showModal();setTimeout(()=>textInput.focus(),100)}
 document.getElementById('new-note').addEventListener('click',()=>openNote());document.querySelectorAll('.comment-btn').forEach(b=>b.addEventListener('click',()=>openNote(b.dataset.topic)));
-document.getElementById('save-note').addEventListener('click',e=>{if(!nameInput.value.trim()||!topic.value.trim()||!textInput.value.trim()){e.preventDefault();document.getElementById('note-form').reportValidity();return}const notes=getNotes();notes.push({name:nameInput.value.trim(),topic:topic.value.trim(),text:textInput.value.trim(),ts:Date.now()});localStorage.setItem('sl27-name',nameInput.value.trim());localStorage.setItem('sl27-notes',JSON.stringify(notes));setTimeout(renderNotes,0)});
-function escapeHtml(s){return s.replace(/[&<>'"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]))}renderNotes();
+
+document.getElementById('save-note').addEventListener('click',async e=>{
+  e.preventDefault();
+  if(!nameInput.value.trim()||!topic.value.trim()||!textInput.value.trim()){document.getElementById('note-form').reportValidity();return}
+  const btn=document.getElementById('save-note');
+  const oldText=btn.textContent; btn.disabled=true; btn.textContent='Saving…';
+  try{
+    const payload={name:nameInput.value.trim(),topic:topic.value.trim(),body:textInput.value.trim()};
+    const r=await fetch(NOTES_ENDPOINT,{method:'POST',headers:{...apiHeaders,'Prefer':'return=representation'},body:JSON.stringify(payload)});
+    if(!r.ok) throw new Error(`HTTP ${r.status}: ${await r.text()}`);
+    localStorage.setItem('sl27-name',payload.name);
+    dialog.close();
+    await loadNotes();
+  }catch(err){
+    console.error('Comment save failed',err);
+    alert('That comment could not be saved. Please try again.');
+  }finally{btn.disabled=false;btn.textContent=oldText}
+});
+
+function escapeHtml(s){return String(s).replace(/[&<>'"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]))}
+loadNotes();
