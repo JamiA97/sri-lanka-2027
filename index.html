@@ -10,7 +10,21 @@
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="" />
   <link rel="stylesheet" href="styles.css" />
 </head>
-<body>
+<body class="auth-pending">
+<section class="access-gate" id="access-gate" aria-live="polite">
+  <div class="access-card">
+    <div class="section-kicker light">ARCHER FAMILY · PRIVATE TRIP SITE</div>
+    <h1>Sri Lanka <em>2027</em></h1>
+    <p>This itinerary and family discussion area is private. Enter the shared family password to continue.</p>
+    <form id="access-form">
+      <label>Family password<input id="access-password" type="password" autocomplete="current-password" required placeholder="Family password"></label>
+      <button class="btn primary" id="access-submit" type="submit">Enter trip</button>
+      <div class="access-error" id="access-error" role="alert"></div>
+    </form>
+  </div>
+</section>
+
+<div id="private-site">
 <header class="hero" id="top">
   <img class="hero-img" src="https://commons.wikimedia.org/wiki/Special:FilePath/Pasikuda%20beach.jpg?width=1800" alt="Sri Lankan beach" />
   <div class="hero-shade"></div>
@@ -79,14 +93,15 @@
 </div></section>
 
 <section class="notes-section" id="notes">
-  <div class="notes-head"><div><div class="section-kicker light">FAMILY NOTES</div><h2>Comments & suggested changes</h2><p>Comments here are shared across devices. Add a thought against the whole trip or one specific stop and everyone viewing the site will see it.</p></div><button class="btn glass" id="new-note">+ Add note</button></div>
+  <div class="notes-head"><div><div class="section-kicker light">FAMILY NOTES</div><h2>Comments & suggested changes</h2><p>Comments here are private to the family and shared across devices. Add a thought against the whole trip or one specific stop and everyone with access will see it.</p></div><button class="btn glass" id="new-note">+ Add note</button></div>
   <div id="notes-list" class="notes-list"></div>
 </section>
 </main>
 
-<footer><div><b>Sri Lanka 2027</b><span>Family proposal · Kuoni reference 420220-4</span></div><a href="#top">Back to top ↑</a><small class="credits">Photography: Wikimedia Commons contributors (CC licensed). Proposal details: Kuoni ref. 420220-4.</small></footer>
+<footer><div><b>Sri Lanka 2027</b><span>Family proposal · Kuoni reference 420220-4</span></div><div class="footer-actions"><button id="family-logout" class="footer-button">Sign out</button><a href="#top">Back to top ↑</a></div><small class="credits">Photography: Wikimedia Commons contributors (CC licensed). Proposal details: Kuoni ref. 420220-4.</small></footer>
 
 <dialog id="note-dialog"><form method="dialog" id="note-form"><button class="dialog-x" value="cancel" aria-label="Close">×</button><div class="section-kicker">ADD A NOTE</div><h3 id="dialog-title">Family comment</h3><label>Your name<input id="note-name" required placeholder="Name"></label><label>About<input id="note-topic" required placeholder="Whole trip"></label><label>Comment or suggested change<textarea id="note-text" required rows="5" placeholder="What do you think?"></textarea></label><div class="dialog-actions"><button value="cancel" class="btn secondary">Cancel</button><button id="save-note" value="default" class="btn primary">Save note</button></div></form></dialog>
+</div>
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
 <script src="app.js"></script>
