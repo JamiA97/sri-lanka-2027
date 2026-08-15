@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <meta name="theme-color" content="#102c25" />
+  <title>Sri Lanka 2027 · Family Proposal</title>
+  <meta name="description" content="Interactive family review of our Sri Lanka 2027 Maalu Maalu proposal." />
+  <link rel="preconnect" href="https://unpkg.com" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+<header class="hero" id="top">
+  <img class="hero-img" src="https://commons.wikimedia.org/wiki/Special:FilePath/Pasikuda%20beach.jpg?width=1800" alt="Sri Lankan beach" />
+  <div class="hero-shade"></div>
+  <nav class="topbar">
+    <a class="brand" href="#top">Sri Lanka <span>2027</span></a>
+    <button class="nav-toggle" aria-label="Open navigation" onclick="document.body.classList.toggle('nav-open')">☰</button>
+    <div class="nav-links">
+      <a href="#route">Route</a><a href="#stays">Stays</a><a href="#days">Day by day</a><a href="#notes">Family notes</a>
+    </div>
+  </nav>
+  <div class="hero-content">
+    <div class="eyebrow">CURRENT FAMILY PROPOSAL · MAALU MAALU VERSION</div>
+    <h1>Return to <em>Sri Lanka</em></h1>
+    <p class="hero-sub">26 July – 9 August 2027 · 4 travellers · wildlife, coast and a long east-coast finish</p>
+    <div class="hero-actions"><a class="btn primary" href="#route">Explore the trip</a><a class="btn glass" href="#notes">Leave a note</a></div>
+  </div>
+  <div class="hero-stats">
+    <div><strong>14</strong><span>nights</span></div><div><strong>5</strong><span>Sri Lanka stops</span></div><div><strong>2</strong><span>national parks</span></div><div><strong>5</strong><span>nights in Pasikuda</span></div>
+  </div>
+</header>
+
+<main>
+<section class="section intro">
+  <div class="section-kicker">THE SHAPE OF THE TRIP</div>
+  <h2>South coast → wild country → east coast</h2>
+  <p>The current proposal deliberately moves from Galle’s coast and culture into Yala and Gal Oya, then slows right down for five nights at Maalu Maalu before one final night in Negombo. Prices are intentionally not shown here.</p>
+</section>
+
+<section class="route-section" id="route">
+  <div class="route-copy">
+    <div class="section-kicker light">ROUTE</div>
+    <h2>Across the island</h2>
+    <ol class="route-list">
+      <li><button data-stop="galle"><span>01</span><b>Galle</b><small>2 nights · Jetwing Lighthouse</small></button></li>
+      <li><button data-stop="yala"><span>02</span><b>Yala</b><small>3 nights · Cinnamon Wild</small></button></li>
+      <li><button data-stop="galoya"><span>03</span><b>Gal Oya</b><small>2 nights · Gal Oya Lodge</small></button></li>
+      <li><button data-stop="maalu"><span>04</span><b>Pasikuda</b><small>5 nights · Maalu Maalu</small></button></li>
+      <li><button data-stop="negombo"><span>05</span><b>Negombo</b><small>1 night · Heritance</small></button></li>
+    </ol>
+  </div>
+  <div id="map" aria-label="Map of the Sri Lanka route"></div>
+</section>
+
+<section class="section" id="stays">
+  <div class="section-kicker">STAYS</div><h2>The places we’d actually be staying</h2>
+  <div class="stay-grid">
+    <article class="stay-card" id="galle"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Galle%20fort%20light.jpg?width=1200" alt="Jetwing Lighthouse"><div class="stay-body"><div class="stay-meta">27–29 JUL · 2 NIGHTS · B&B</div><h3>Jetwing Lighthouse</h3><p>Two Luxury Rooms in the Main Wing. A Geoffrey Bawa-designed oceanfront base close to Galle Fort.</p><a href="https://www.jetwinghotels.com/jetwinglighthouse/" target="_blank" rel="noopener">Official hotel site ↗</a><button class="comment-btn" data-topic="Jetwing Lighthouse">Comment</button></div></article>
+    <article class="stay-card" id="yala"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Srilankan%20leopard%20in%20Yala%20National%20Park.jpg?width=1200" alt="Leopard in Yala"><div class="stay-body"><div class="stay-meta">29 JUL–1 AUG · 3 NIGHTS · HALF BOARD</div><h3>Cinnamon Wild Yala</h3><p>Two Jungle Chalets. This is the wildlife-heavy part of the trip, with two private three-hour Yala jeep safaris planned.</p><a href="https://www.cinnamonhotels.com/cinnamon-wild-yala" target="_blank" rel="noopener">Official hotel site ↗</a><button class="comment-btn" data-topic="Cinnamon Wild Yala / safaris">Comment</button></div></article>
+    <article class="stay-card" id="galoya"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Gal%20Oya%20National%20Park%20%28Senanayake%20Samudhraya%29.JPG?width=1200" alt="Gal Oya Lodge"><div class="stay-body"><div class="stay-meta">1–3 AUG · 2 NIGHTS · HALF BOARD</div><h3>Gal Oya Lodge</h3><p>Signature Family Villa with plunge pool. The proposal includes a private boat safari on Senanayake Samudraya.</p><a href="https://www.galoyalodge.com/" target="_blank" rel="noopener">Official lodge site ↗</a><button class="comment-btn" data-topic="Gal Oya Lodge">Comment</button></div></article>
+    <article class="stay-card feature" id="maalu"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Maalu%20Maalu%20Beach%20Resort%2C%20Pasikuda%2C%20Sri%20Lanka.jpg?width=1200" alt="Maalu Maalu Resort & Spa"><div class="stay-body"><div class="stay-meta">3–8 AUG · 5 NIGHTS · HALF BOARD</div><div class="preferred">CURRENT PREFERRED BEACH OPTION</div><h3>Maalu Maalu Resort & Spa</h3><p>One Panoramic Suite with Attic: queen bed plus twin beds on the mezzanine, 54m², balcony, Jacuzzi, and access to a shared plunge pool and steam room.</p><a href="https://www.themacollection.com/maalu-maalu-resort/" target="_blank" rel="noopener">Official hotel site ↗</a><button class="comment-btn" data-topic="Maalu Maalu Resort & Spa">Comment</button></div></article>
+    <article class="stay-card" id="negombo"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Negombo%20Browns%20Beach.jpg?width=1200" alt="Sentido Heritance Negombo"><div class="stay-body"><div class="stay-meta">8–9 AUG · 1 NIGHT · B&B</div><h3>SENTIDO Heritance Negombo</h3><p>Two Deluxe Rooms, with the proposal noting a guaranteed upgrade to Superior Deluxe. Final beach stop before the morning flight.</p><a href="https://www.heritancehotels.com/negombo/" target="_blank" rel="noopener">Official hotel site ↗</a><button class="comment-btn" data-topic="Heritance Negombo">Comment</button></div></article>
+  </div>
+</section>
+
+<section class="wildlife-band">
+  <div><div class="section-kicker light">THE BIG IDEA</div><h2>Two very different safari experiences</h2><p>Yala is the leopard-focused headline act. Gal Oya is quieter and more unusual: lake, jungle and the possibility of seeing elephants in the water.</p></div>
+  <div class="wild-cards"><article><b>YALA</b><strong>2 × private jeep safaris</strong><span>31 Jul & 1 Aug</span></article><article><b>GAL OYA</b><strong>Private boat safari</strong><span>2 Aug</span></article></div>
+</section>
+
+<section class="section" id="days"><div class="section-kicker">DAY BY DAY</div><h2>Current itinerary</h2><div class="timeline" id="timeline"></div></section>
+
+<section class="section decisions"><div class="section-kicker">OPEN QUESTIONS</div><h2>Things worth discussing</h2><div class="decision-grid">
+  <article><span>01</span><h3>Two Yala safaris?</h3><p>The proposal currently has a private safari on both 31 July and 1 August.</p><button class="comment-btn" data-topic="Do we want both Yala safaris?">Discuss</button></article>
+  <article><span>02</span><h3>Galle free time</h3><p>Do we want to keep Galle loose, or add one planned experience around the fort or coast?</p><button class="comment-btn" data-topic="What should we do in Galle?">Discuss</button></article>
+  <article><span>03</span><h3>Maalu Maalu days</h3><p>Five nights gives us proper downtime. We can decide later whether any reef, snorkelling or Batticaloa activity is worth pre-planning.</p><button class="comment-btn" data-topic="Maalu Maalu activities">Discuss</button></article>
+</div></section>
+
+<section class="notes-section" id="notes">
+  <div class="notes-head"><div><div class="section-kicker light">FAMILY NOTES</div><h2>Comments & suggested changes</h2><p>Add a thought against the whole trip or one specific stop. On this first build, notes are saved on the device you enter them on; the shared family backend is the next wiring step.</p></div><button class="btn glass" id="new-note">+ Add note</button></div>
+  <div id="notes-list" class="notes-list"></div>
+</section>
+</main>
+
+<footer><div><b>Sri Lanka 2027</b><span>Family proposal · Kuoni reference 420220-4</span></div><a href="#top">Back to top ↑</a><small class="credits">Photography: Wikimedia Commons contributors (CC licensed). Proposal details: Kuoni ref. 420220-4.</small></footer>
+
+<dialog id="note-dialog"><form method="dialog" id="note-form"><button class="dialog-x" value="cancel" aria-label="Close">×</button><div class="section-kicker">ADD A NOTE</div><h3 id="dialog-title">Family comment</h3><label>Your name<input id="note-name" required placeholder="Name"></label><label>About<input id="note-topic" required placeholder="Whole trip"></label><label>Comment or suggested change<textarea id="note-text" required rows="5" placeholder="What do you think?"></textarea></label><div class="dialog-actions"><button value="cancel" class="btn secondary">Cancel</button><button id="save-note" value="default" class="btn primary">Save note</button></div></form></dialog>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
+<script src="app.js"></script>
+</body>
+</html>
