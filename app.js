@@ -63,25 +63,30 @@ document.getElementById('family-logout').addEventListener('click',async()=>{
 function initTrip(){
   tripInitialised=true;
   const itinerary = [
-    ['Mon 26 Jul','Fly Manchester → Doha','Qatar Airways QR28 · depart 14:55 · arrive 23:45.'],
-    ['Tue 27 Jul','Doha → Colombo → Galle','QR660 arrives Colombo 09:40. Private Whittalls transfer to Jetwing Lighthouse; check in for two nights.'],
-    ['Wed 28 Jul','Galle','Full day based at Jetwing Lighthouse. Nothing fixed in the current proposal.'],
-    ['Thu 29 Jul','Galle → Yala','Car and chauffeur begins. Check in to Cinnamon Wild Yala for three nights.'],
-    ['Fri 30 Jul','Yala','Free day at Cinnamon Wild in the current proposal.'],
-    ['Sat 31 Jul','Yala safari','Private three-hour jeep safari from the Yala hotel.'],
-    ['Sun 1 Aug','Yala safari → Gal Oya','Second private three-hour Yala safari, then check in to Gal Oya Lodge for two nights.'],
-    ['Mon 2 Aug','Gal Oya boat safari','Private boat safari in Gal Oya National Park.'],
-    ['Tue 3 Aug','Gal Oya → Pasikuda','Chauffeur section ends. Check in to Maalu Maalu Resort & Spa for five nights.'],
-    ['Wed 4 Aug','Maalu Maalu','Beach / resort day.'],['Thu 5 Aug','Maalu Maalu','Beach / resort day.'],['Fri 6 Aug','Maalu Maalu','Beach / resort day.'],['Sat 7 Aug','Maalu Maalu','Final full beach day.'],
-    ['Sun 8 Aug','Pasikuda → Batticaloa → Colombo → Negombo','Private transfer to Batticaloa Airport, domestic flight to Colombo, then private transfer to SENTIDO Heritance Negombo.'],
-    ['Mon 9 Aug','Colombo → Doha → Manchester','QR665 departs 10:30; connect to QR23; arrive Manchester 19:55.']
+    ['Mon 2 Aug','Manchester → Dubai','Emirates EK18 departs Manchester at 14:05; arrives Dubai on 3 August at 00:25.'],
+    ['Tue 3 Aug','Dubai → Colombo','Emirates EK650 departs Dubai 02:30 and arrives Colombo 08:30. Private transfer to Shangri-La Colombo; one night, bed & breakfast.'],
+    ['Wed 4 Aug','Colombo → Galle','Private transfer to Jetwing Lighthouse. Check in for two nights, bed & breakfast.'],
+    ['Thu 5 Aug','Galle','Day to explore Galle, the fort or the coast; no fixed excursion in the quote.'],
+    ['Fri 6 Aug','Galle → Yala','Start the five-day car-and-chauffeur itinerary. Check in at Jetwing Yala for two nights, half board.'],
+    ['Sat 7 Aug','Yala safari','Private three-hour Yala jeep safari, morning or afternoon timing to be confirmed.'],
+    ['Sun 8 Aug','Yala safari → Gal Oya','Second private three-hour Yala safari, then transfer to Gal Oya Lodge for two nights, half board. Transfer timing should be confirmed with Kuoni.'],
+    ['Mon 9 Aug','Gal Oya boat safari','Private boat safari in Gal Oya National Park.'],
+    ['Tue 10 Aug','Gal Oya → Pasikuda','Transfer to Maalu Maalu Resort & Spa. Panoramic Suite, half board, five nights.'],
+    ['Wed 11 Aug','Maalu Maalu','Beach and resort day.'],
+    ['Thu 12 Aug','Maalu Maalu','Beach and resort day.'],
+    ['Fri 13 Aug','Maalu Maalu','Beach and resort day.'],
+    ['Sat 14 Aug','Maalu Maalu','Final full beach day.'],
+    ['Sun 15 Aug','Pasikuda → Batticaloa → Colombo → Negombo','Private transfer to Batticaloa Airport; domestic flight to Colombo; private transfer to SENTIDO Heritance Negombo for one night, bed & breakfast. Domestic flight time not specified.'],
+    ['Mon 16 Aug','Negombo → Colombo → Dubai','Private airport transfer. Emirates EK655 departs Colombo at 22:05; arrives Dubai on 17 August at 00:55.'],
+    ['Tue 17 Aug','Dubai → Manchester','Emirates EK21 departs Dubai 03:00 and arrives Manchester 07:45.']
   ];
   const timeline=document.getElementById('timeline');
   itinerary.forEach(([d,t,p])=>{const e=document.createElement('article');e.className='day';e.innerHTML=`<div class="day-date">${d}</div><div><h3>${t}</h3><p>${p}</p></div>`;timeline.appendChild(e)});
 
   const stops={
+    colombo:{coords:[6.9271,79.8612],name:'Colombo',hotel:'Shangri-La Colombo · 1 night'},
     galle:{coords:[6.0329,80.2168],name:'Galle',hotel:'Jetwing Lighthouse · 2 nights'},
-    yala:{coords:[6.3659,81.5065],name:'Yala',hotel:'Cinnamon Wild · 3 nights'},
+    yala:{coords:[6.3659,81.5065],name:'Yala',hotel:'Jetwing Yala · 2 nights'},
     galoya:{coords:[7.2141,81.5300],name:'Gal Oya',hotel:'Gal Oya Lodge · 2 nights'},
     maalu:{coords:[7.9230,81.5610],name:'Pasikuda',hotel:'Maalu Maalu · 5 nights'},
     negombo:{coords:[7.2385,79.8403],name:'Negombo',hotel:'SENTIDO Heritance · 1 night'}
